@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>To my soulmate</title>❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+:root {
+  --rose:#c94f6d; --rose-light:#f5c6d0; --rose-dark:#8b2d47;
+  --gold:#d4a843; --cream:#fdf6ee; --deep:#0d0208;
+}
+html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans-serif; background:var(--deep); color:var(--cream); }
+
+/* particles */
+#particles { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+.particle { position:absolute; border-radius:50%; animation:floatUp linear infinite; opacity:0; }
+@keyframes floatUp {
+  0%{transform:translateY(100vh) scale(0);opacity:0}
+  10%{opacity:.7} 90%{opacity:.3}
+  100%{transform:translateY(-20px) scale(1.2);opacity:0}
+}
+
+/* pages */
+.page {
+  position:fixed; inset:0; z-index:10;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:28px 22px 80px;
+  opacity:0; pointer-events:none;
+  transition:opacity .7s ease, transform .7s ease;
+  transform:translateY(28px);
+  overflow-y:auto; -webkit-overflow-scrolling:touch;
+}
+.page.active { opacity:1; pointer-events:all; transform:translateY(0); }
+.page.exit   { opacity:0; transform:translateY(-28px); pointer-events:none; }
+
+/* ── PASSWORD ── */
+#page-password { background:radial-gradient(ellipse at center,#1e0812 0%,#0d0208 100%); }
+.lock-icon { font-size:60px; margin-bottom:22px; animation:pulse 2s ease-in-out infinite; }
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.pw-title { font-family:'Playfair Display',serif; font-size:26px; color:var(--rose-light); text-align:center; margin-bottom:6px; }
+.pw-sub   { font-size:13px; color:rgba(253,246,238,.45); text-align:center; margin-bottom:32px; }
+.pw-input {
+  width:100%; max-width:290px; padding:15px 20px;
+  background:rgba(255,255,255,.06); border:1px solid rgba(201,79,109,.4);
+  border-radius:50px; color:var(--cream); font-family:'Tajawal',sans-serif;
+  font-size:18px; text-align:center; letter-spacing:4px; outline:none;
+  transition:border-color .3s,box-shadow .3s; display:block;
+}
+.pw-input:focus { border-color:var(--rose); box-shadow:0 0 0 3px rgba(201,79,109,.2); }
+.pw-input.wrong { border-color:#e74c3c; animation:shake .4s ease; }
+.pw-input.ok    { border-color:#2ecc71; }
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-10px)}40%{transform:translateX(10px)}60%{transform:translateX(-8px)}80%{transform:translateX(6px)}}
+.pw-btn {
+  margin-top:18px; width:100%; max-width:290px; padding:15px;
+  border:none; border-radius:50px;
+  background:linear-gradient(135deg,var(--rose),var(--rose-dark));
+  color:#fff; font-family:'Tajawal',sans-serif; font-size:17px; font-weight:700;
+  cursor:pointer; box-shadow:0 4px 20px rgba(201,79,109,.4);
+  transition:transform .2s,box-shadow .2s;
+}
+.pw-btn:active { transform:scale(.97); }
+.pw-hint { margin-top:14px; font-size:12px; color:rgba(253,246,238,.25); text-align:center; }
+
+/* ── WELCOME ── */
+#page-welcome { background:radial-gradient(ellipse at 50% 30%,#2a0a18 0%,#0d0208 100%); }
+.welcome-to { font-size:12px; letter-spacing:5px; color:var(--gold); text-transform:uppercase; margin-bottom:14px; }
+.welcome-name {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(40px,12vw,70px); color:var(--rose-light); line-height:1.1;
+  text-align:center; margin-bottom:10px;
+  text-shadow:0 0 40px rgba(201,79,109,.5);
+}
+.welcome-sub { font-size:15px; color:rgba(253,246,238,.55); text-align:center; margin-bottom:36px; line-height:1.8; }
+.typed-wrap { min-height:70px; width:100%; max-width:340px; text-align:center; }
+.typed-text { font-family:'Playfair Display',serif; font-size:19px; line-height:1.9; color:var(--cream); }
+.cursor { display:inline-block; width:2px; height:1em; background:var(--rose); vertical-align:middle; margin-right:1px; animation:blink .8s step-end infinite; }
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.from-who { font-size:12px; letter-spacing:4px; color:var(--gold); text-transform:uppercase; margin:28px 0 8px; }
+
+/* divider */
+.div-row { display:flex; align-items:center; gap:10px; width:100%; max-width:260px; margin:20px 0; }
+.div-line { flex:1; height:1px; background:rgba(201,79,109,.3); }
+.div-glyph { color:var(--rose); font-size:14px; }
+
+/* ── PHOTO PAGE ── */
+.photo-page { background:#080208; justify-content:flex-start; padding-top:50px; }
+.photo-counter { font-size:11px; letter-spacing:4px; color:rgba(253,246,238,.3); text-transform:uppercase; margin-bottom:20px; }
+.photo-frame {
+  width:100%; max-width:380px; border-radius:18px; overflow:hidden;
+  position:relative; aspect-ratio:4/5;
+  border:1px solid rgba(201,79,109,.25);
+  background:#0f0010;
+  box-shadow:0 8px 40px rgba(0,0,0,.6);
+}
+.photo-frame img { width:100%; height:100%; object-fit:cover; display:block; }
+.photo-placeholder-inner {
+  width:100%; height:100%; display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  color:rgba(255,255,255,.15); gap:12px;
+}
+.photo-placeholder-inner .ph-num { font-family:'Playfair Display',serif; font-size:72px; color:rgba(201,79,109,.15); }
+.photo-caption-text {
+  margin-top:20px; font-family:'Playfair Display',serif;
+  font-size:18px; color:var(--rose-light); text-align:center;
+  line-height:1.7; max-width:340px;
+}
+
+/* reaction row */
+.reaction-row {
+  display:flex; gap:12px; margin-top:24px;
+  width:100%; max-width:340px; justify-content:center;
+}
+.react-btn {
+  flex:1; padding:13px 10px; border-radius:50px; font-family:'Tajawal',sans-serif;
+  font-size:15px; font-weight:600; cursor:pointer; transition:all .25s;
+  letter-spacing:.5px;
+}
+.react-btn.yes {
+  background:linear-gradient(135deg,var(--rose),var(--rose-dark));
+  border:none; color:#fff; box-shadow:0 4px 18px rgba(201,79,109,.4);
+}
+.react-btn.no {
+  background:transparent; border:1.5px solid rgba(201,79,109,.5); color:var(--rose-light);
+}
+.react-btn:active { transform:scale(.97); }
+
+/* comment box */
+.comment-wrap {
+  width:100%; max-width:340px; margin-top:16px;
+  display:none; flex-direction:column; gap:10px;
+}
+.comment-wrap.open { display:flex; }
+.comment-input {
+  width:100%; padding:13px 16px; border-radius:14px;
+  background:rgba(255,255,255,.06); border:1px solid rgba(201,79,109,.35);
+  color:var(--cream); font-family:'Tajawal',sans-serif; font-size:15px;
+  outline:none; resize:none; min-height:80px;
+  transition:border-color .3s;
+}
+.comment-input:focus { border-color:var(--rose); }
+.comment-input::placeholder { color:rgba(253,246,238,.3); }
+.send-comment-btn {
+  align-self:flex-end; padding:11px 28px; border-radius:50px;
+  background:linear-gradient(135deg,var(--rose),var(--rose-dark));
+  border:none; color:#fff; font-family:'Tajawal',sans-serif;
+  font-size:15px; font-weight:700; cursor:pointer;
+  box-shadow:0 3px 14px rgba(201,79,109,.4);
+  transition:transform .2s;
+}
+.send-comment-btn:active { transform:scale(.97); }
+
+/* comment display */
+.comment-display {
+  width:100%; max-width:340px; margin-top:14px;
+  background:rgba(201,79,109,.1); border:1px solid rgba(201,79,109,.25);
+  border-radius:14px; padding:14px 16px;
+  display:none;
+}
+.comment-display.show { display:block; }
+.comment-display-text { font-size:15px; color:var(--cream); line-height:1.7; }
+.continue-btn-wrap { width:100%; max-width:340px; margin-top:20px; display:flex; justify-content:center; }
+
+/* ── CONFESSION ── */
+#page-confession { background:radial-gradient(ellipse at 50% 60%,#1f0d15 0%,#060206 100%); }
+.heart-big { font-size:64px; margin-bottom:18px; animation:heartbeat 1.3s ease-in-out infinite; }
+@keyframes heartbeat{0%,100%{transform:scale(1)}14%{transform:scale(1.15)}28%{transform:scale(1)}42%{transform:scale(1.1)}56%{transform:scale(1)}}
+.conf-typed { font-family:'Playfair Display',serif; font-size:clamp(17px,4.8vw,24px); color:var(--cream); text-align:center; line-height:1.9; min-height:120px; max-width:340px; }
+
+/* ── EYES CLOSED ── */
+#page-eyes { background:#000; }
+.eyes-instruction { font-family:'Playfair Display',serif; font-size:clamp(22px,7vw,34px); color:var(--rose-light); margin-bottom:20px; line-height:1.5; text-align:center; }
+.eyes-sub { font-size:14px; color:rgba(253,246,238,.45); margin-bottom:44px; text-align:center; }
+.countdown-num {
+  font-family:'Playfair Display',serif; font-size:120px; color:var(--rose); line-height:1;
+  text-align:center; text-shadow:0 0 60px rgba(201,79,109,.6);
+  animation:countPulse 1s ease-in-out;
+}
+@keyframes countPulse{0%{transform:scale(1.4);opacity:0}100%{transform:scale(1);opacity:1}}
+.chain-emoji { font-size:80px; margin-bottom:20px; animation:sparkle .5s ease-out; }
+@keyframes sparkle{0%{transform:scale(0) rotate(-20deg);opacity:0}80%{transform:scale(1.2) rotate(5deg)}100%{transform:scale(1) rotate(0);opacity:1}}
+.final-name { font-family:'Playfair Display',serif; font-size:48px; color:var(--rose-light); text-shadow:0 0 30px rgba(201,79,109,.6); margin-bottom:14px; text-align:center; }
+.final-typed { font-family:'Playfair Display',serif; font-size:clamp(15px,4.5vw,22px); color:var(--cream); line-height:1.9; min-height:100px; max-width:340px; text-align:center; margin-bottom:28px; }
+.forever { font-size:12px; letter-spacing:5px; color:var(--gold); text-transform:uppercase; }
+
+/* ── SHARED NAV BUTTON ── */
+.nav-btn {
+  padding:14px 44px; border:1.5px solid var(--rose); border-radius:50px;
+  background:transparent; color:var(--rose-light);
+  font-family:'Tajawal',sans-serif; font-size:16px; font-weight:500;
+  cursor:pointer; transition:all .3s; letter-spacing:1px;
+}
+.nav-btn:hover,.nav-btn:active { background:var(--rose); color:#fff; box-shadow:0 4px 20px rgba(201,79,109,.4); transform:scale(1.03); }
+.nav-btn.primary {
+  background:linear-gradient(135deg,var(--rose),var(--rose-dark));
+  color:#fff; border-color:transparent; box-shadow:0 4px 20px rgba(201,79,109,.4);
+}
+
+/* progress dots */
+#progress { position:fixed; bottom:22px; left:50%; transform:translateX(-50%); display:flex; gap:7px; z-index:100; }
+.dot { width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,.18); transition:all .3s; }
+.dot.active { background:var(--rose); width:18px; border-radius:3px; }
+
+/* music btn */
+#music-btn {
+  position:fixed; top:16px; left:16px; z-index:200; width:38px; height:38px;
+  border-radius:50%; background:rgba(201,79,109,.18); border:1px solid rgba(201,79,109,.35);
+  color:var(--rose-light); font-size:17px; display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:all .3s; backdrop-filter:blur(8px);
+}
+</style>
+</head>
+<body>
+
+<div id="particles"></div>
+<button id="music-btn" onclick="toggleMusic()">♪</button>
+<audio id="bg-audio" loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+</audio>
+<div id="progress"></div>
+
+<!-- PAGE 0: PASSWORD -->
+<div class="page active" id="page-password">
+  <div class="lock-icon">🔒</div>
+  <div class="pw-title">بصي يا روح قلبي طبعا ده مش حلجه جنب كلامي اللي هقوله بس انا هعمل اي حاجه بتيجي ع بالي علشان خاطر روح قلبي </div>
+  <div class="pw-sub">اكتبي اكتر يوم مميز</div>
+  <input class="pw-input" id="pw-field" type="password" placeholder="••••" maxlength="30"
+    onkeydown="if(event.key==='Enter')checkPw()">
+  <button class="pw-btn" onclick="checkPw()">تأكيدي ❤️</button>
+  <div class="pw-hint">كلمة سرية بيننا إحنا الاتنين 🔐</div>
+</div>
+
+<!-- PAGE 1: WELCOME -->
+<div class="page" id="page-welcome">
+  <div class="welcome-to">لـ</div>
+  <div class="welcome-name">نونتي</div>
+  <div class="welcome-sub">اللي بتنور يومي من غير ما تاخد بالها ✨</div>
+  <div class="div-row"><div class="div-line"></div><div class="div-glyph">❤</div><div class="div-line"></div></div>
+  <div class="typed-wrap"><div class="typed-text" id="typed-welcome"><span class="cursor"></span></div></div>
+  <div class="div-row"><div class="div-line"></div><div class="div-glyph">✦</div><div class="div-line"></div></div>
+  <div class="from-who"></div>
+  <button class="nav-btn primary" style="margin-top:8px" onclick="goTo(2)">افتحي ❤️</button>
+</div>
+
+<!-- PAGES 2–11: PHOTOS (built by JS) -->
+
+<!-- PAGE 12: CONFESSION -->
+<div class="page" id="page-confession">
+  <div class="heart-big">🩷</div>
+  <div class="conf-typed" id="conf-typed"><span class="cursor"></span></div>
+  <div class="div-row" style="margin-top:28px"><div class="div-line"></div><div class="div-glyph">✦</div><div class="div-line"></div></div>
+  <div style="font-size:14px;color:rgba(253,246,238,.45);text-align:center;line-height:1.8;max-width:310px">
+    مش عارف أشرح المشاعر دي بالكلام...<br>بس إنتِ بتحسيها
+  </div>
+  <button class="nav-btn" style="margin-top:36px" onclick="goTo(13)">في مفاجأة →</button>
+</div>
+
+<!-- PAGE 13: EYES CLOSED -->
+<div class="page" id="page-eyes">
+  <div id="eyes-a" style="text-align:center">
+    <div class="eyes-instruction">غمضي عينيكي 👀</div>
+    <div class="eyes-sub">وأنا هحسبلك لـ ٣</div>
+    <button class="nav-btn primary" onclick="startCountdown()">جاهزة ✨</button>
+  </div>
+  <div id="eyes-b" style="display:none;text-align:center">
+    <div class="countdown-num" id="count-num">3</div>
+  </div>
+  <div id="eyes-c" style="display:none;text-align:center;display:none;flex-direction:column;align-items:center">
+    <div class="chain-emoji">💎</div>
+    <div class="final-name">نونتي 🌸</div>
+    <div class="final-typed" id="final-typed"><span class="cursor"></span></div>
+    <div class="forever">FOREVER ✦ ALWAYS</div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════
+//  CONFIG — عدّل هنا بس
+// ═══════════════════════════════════════
+const PASSWORD = "662026"; // ← الباسورد
+
+const PHOTOS = [
+  // ضيف رابط الصورة في src (أو سيبها فاضية وهتبقى placeholder)
+  // caption = الكلام اللي بيظهر تحت الصورة
+  { src: "images/photo1.jpeg", caption: "أول يوم نزلنا نتكلم فيه بعد ما حكينا لبعض 🌸" },
+  { src: "images/photo2.jpeg", caption: "اليوم ده لما كنا صحاب بس حقيقي اليوم ده انا كنت مبهور بجمالك ومكنتش عايز اسيبك خالص ✨" },
+  { src: "images/photo3.jpeg", caption: "الصوره دي حلوه اوي وجت كده مره واحده 😄" },
+  { src: "images/photo4.jpeg", caption: "اليوم ده يا نورهان كان حلو بجد اوي وقضينا فيه معظم اليوم سوا لحد ما وصلتك  وجبنا دره سوا 💫" },
+  { src: "images/photo5.jpeg", caption: "اليوم ده بقا اقسم بالله ما هيتنسي ابدا انا عيشت اعظم ايامي بجد انت متخليه حضن وبوسه في نفس اليوم بجد بحبك اويي🌙" },
+];
+// ═══════════════════════════════════════
+
+// build dots & photo pages
+const TOTAL_PAGES = 2 + PHOTOS.length + 2; // pw + welcome + photos + confession + eyes
+const progress = document.getElementById('progress');
+for (let i = 0; i < TOTAL_PAGES; i++) {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i === 0 ? ' active' : '');
+  d.id = 'dot-' + i;
+  progress.appendChild(d);
+}
+
+// build photo pages
+PHOTOS.forEach((p, idx) => {
+  const pageIdx = idx + 2; // pages 2..11
+  const div = document.createElement('div');
+  div.className = 'page photo-page';
+  div.id = 'page-photo-' + idx;
+  div.innerHTML = `
+    <div class="photo-counter">صورة ${idx+1} من ${PHOTOS.length}</div>
+    <div class="photo-frame" id="frame-${idx}">
+      ${p.src
+        ? `<img src="${p.src}" alt="${p.caption}" loading="lazy">`
+        : `<div class="photo-placeholder-inner">
+             <div class="ph-num">${idx+1}</div>
+             <div style="font-size:13px;color:rgba(255,255,255,.2);text-align:center;padding:0 16px">${p.caption}</div>
+           </div>`
+      }
+    </div>
+    <div class="photo-caption-text">${p.caption}</div>
+    <div class="reaction-row" id="react-${idx}">
+      <button class="react-btn yes" onclick="onYes(${idx})">عندي كلام ❤️</button>
+      <button class="react-btn no"  onclick="onNo(${idx})">نكمل →</button>
+    </div>
+    <div class="comment-wrap" id="comment-wrap-${idx}">
+      <textarea class="comment-input" id="comment-input-${idx}" placeholder="اكتبي كلامك هنا..."></textarea>
+      <button class="send-comment-btn" onclick="sendComment(${idx})">يلا نكمل →</button>
+    </div>
+    <div class="comment-display" id="comment-display-${idx}">
+      <div class="comment-display-text" id="comment-text-${idx}"></div>
+    </div>
+    <div class="continue-btn-wrap" id="cont-${idx}" style="display:none">
+      <button class="nav-btn" onclick="goTo(${pageIdx+1})">نكمل →</button>
+    </div>
+  `;
+  // insert before confession page
+  const confPage = document.getElementById('page-confession');
+  document.body.insertBefore(div, confPage);
+});
+
+// page registry (built after DOM insert)
+function getPage(n) {
+  if (n === 0) return document.getElementById('page-password');
+  if (n === 1) return document.getElementById('page-welcome');
+  if (n >= 2 && n <= PHOTOS.length + 1) return document.getElementById('page-photo-' + (n - 2));
+  if (n === PHOTOS.length + 2) return document.getElementById('page-confession');
+  if (n === PHOTOS.length + 3) return document.getElementById('page-eyes');
+}
+
+let current = 0;
+
+function goTo(n) {
+  const from = getPage(current);
+  const to   = getPage(n);
+  from.classList.remove('active');
+  from.classList.add('exit');
+  setTimeout(() => from.classList.remove('exit'), 700);
+  to.classList.add('active');
+  document.getElementById('dot-' + current).classList.remove('active');
+  document.getElementById('dot-' + n).classList.add('active');
+  current = n;
+  if (n === 1) typeWelcome();
+  if (n === PHOTOS.length + 2) typeConfession();
+}
+
+// ── photo reactions ──
+function onYes(idx) {
+  document.getElementById('react-' + idx).style.display = 'none';
+  document.getElementById('comment-wrap-' + idx).classList.add('open');
+  document.getElementById('comment-input-' + idx).focus();
+}
+function onNo(idx) {
+  goTo(idx + 3); // idx+2 is page index, idx+3 is next
+}
+function sendComment(idx) {
+  const val = document.getElementById('comment-input-' + idx).value.trim();
+  if (!val) return;
+  document.getElementById('comment-wrap-' + idx).classList.remove('open');
+  const disp = document.getElementById('comment-display-' + idx);
+  document.getElementById('comment-text-' + idx).textContent = '💬 ' + val;
+  disp.classList.add('show');
+  document.getElementById('cont-' + idx).style.display = 'flex';
+}
+
+// ── password ──
+function checkPw() {
+  const val = document.getElementById('pw-field').value.trim().toLowerCase();
+  const inp = document.getElementById('pw-field');
+  if (val === PASSWORD.toLowerCase()) {
+    inp.classList.add('ok');
+    document.querySelector('#page-password .lock-icon').textContent = '🔓';
+    setTimeout(() => goTo(1), 600);
+  } else {
+    inp.classList.add('wrong');
+    setTimeout(() => { inp.classList.remove('wrong'); inp.value = ''; }, 500);
+  }
+}
+
+// ── typing ──
+function typeText(el, text, speed, cb) {
+  el.innerHTML = '<span class="cursor"></span>';
+  let i = 0;
+  function t() {
+    if (i < text.length) {
+      el.innerHTML = text.substring(0, i+1) + '<span class="cursor"></span>';
+      i++; setTimeout(t, speed);
+    } else if (cb) cb();
+  }
+  setTimeout(t, 400);
+}
+function typeWelcome() {
+  typeText(document.getElementById('typed-welcome'),
+    'عارفه بجد يا نورهان انا بحب اووي اكون معاكي  وجنبك ولما بشوفك بس قدامي وامسك ايدك بكون مطمن اوي ونفسي بجد ربنا يكتبهالنا سوا ربنا يخليكي ليا يا  احلى حاجه حصلتلي بجد ', 48);
+}
+function typeConfession() {
+  typeText(document.getElementById('conf-typed'),
+    'انا بحبك اوي اوي .. من زمان وأنا خايف أقول.. بس إنتِ تستاهلي كل كلمة حلوة في الدنيا 🌹', 42);
+}
+function typeFinal() {
+  typeText(document.getElementById('final-typed'),
+    'دي سلسله من ليكي يارب يارب تعجبك .. وجبتها عشان كل ما تبصيلها تفتكريني وعايزك توعديني انك مش هتخلعيها خالص.. واعرفي إن في حد بيحبك من كل قلبه 💕', 44);
+}
+
+// ── countdown ──
+function startCountdown() {
+  document.getElementById('eyes-a').style.display = 'none';
+  document.getElementById('eyes-b').style.display = 'block';
+  let n = 3;
+  const el = document.getElementById('count-num');
+  function tick() {
+    el.style.animation = 'none'; void el.offsetWidth; el.style.animation = 'countPulse 1s ease-in-out';
+    el.textContent = n;
+    if (n > 0) { n--; setTimeout(tick, 1100); }
+    else {
+      setTimeout(() => {
+        document.getElementById('eyes-b').style.display = 'none';
+        const c = document.getElementById('eyes-c');
+        c.style.display = 'flex'; c.style.flexDirection = 'column'; c.style.alignItems = 'center';
+        typeFinal();
+      }, 800);
+    }
+  }
+  tick();
+}
+
+// ── music ──
+let musicOn = false;
+function toggleMusic() {
+  const a = document.getElementById('bg-audio'), b = document.getElementById('music-btn');
+  if (musicOn) { a.pause(); b.textContent = '♪'; musicOn = false; }
+  else { a.play().catch(()=>{}); b.textContent = '♫'; musicOn = true; }
+}
+
+// ── particles ──
+(function(){
+  const c = document.getElementById('particles');
+  const cols = ['#c94f6d','#f5c6d0','#d4a843','#e8a0b0'];
+  for (let i = 0; i < 28; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const s = Math.random()*6+3;
+    p.style.cssText = `width:${s}px;height:${s}px;left:${Math.random()*100}%;background:${cols[Math.floor(Math.random()*4)]};animation-duration:${Math.random()*8+6}s;animation-delay:${Math.random()*12}s`;
+    c.appendChild(p);
+  }
+})();
+</script>
+</body>
+</html>
